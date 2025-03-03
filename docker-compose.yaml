@@ -1,0 +1,29 @@
+# this file is here to facilitate development/testing
+# $ docker compose up -d --build --force-recreate
+
+services:
+  postgres:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+
+  backup-r2:
+    build:
+      context: .
+      args:
+        POSTGRES_VERSION: '17'
+    environment:
+      SCHEDULE: '@weekly'     # optional, options: [@yearly, @monthly, @weekly, @daily, @hourly, @every 1h30m10s]
+      BACKUP_KEEP_DAYS: 7     # optional, if empty, keep forever
+      PASSPHRASE:             # optional
+      CLOUDFLARE_R2_REGION: auto
+      CLOUDFLARE_R2_ACCESS_KEY_ID: key
+      CLOUDFLARE_R2_SECRET_ACCESS_KEY: secret
+      CLOUDFLARE_R2_BUCKET: my-bucket
+      CLOUDFLARE_R2_ENDPOINT: https://ACCOUNT_ID.r2.cloudflarestorage.com
+      R2_PREFIX: backups
+      POSTGRES_HOST: postgres
+      POSTGRES_DATABASE: dbname
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
