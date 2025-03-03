@@ -1,5 +1,8 @@
 # Introduction
 
+[![Build Status](https://github.com/dcalsky/postgres-backup-r2/actions/workflows/build-and-push-images.yml/badge.svg?branch=master)](https://github.com/dcalsky/postgres-backup-r2/actions/workflows/build-and-push-images.yml)
+[![Docker Pulls](https://img.shields.io/docker/pulls/dcalsky/postgres-backup-r2)](https://hub.docker.com/r/dcalsky/postgres-backup-r2)
+
 This project provides Docker images to periodically back up a PostgreSQL database to Cloudflare R2, and to restore from the backup as needed.
 
 # Usage
@@ -15,7 +18,7 @@ services:
       POSTGRES_PASSWORD: password
 
   backup:
-    image: dcalsky/postgres-backup-r2:latest
+    image: dcalsky/postgres-backup-r2:17
     environment:
       SCHEDULE: '@weekly'     # optional, options: [@yearly, @monthly, @weekly, @daily, @hourly, @every 1h30m10s]
       BACKUP_KEEP_DAYS: 7     # optional, if empty, keep forever
